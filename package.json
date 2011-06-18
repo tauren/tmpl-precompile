@@ -1,0 +1,17 @@
+{
+  "name": "jade-precompile",
+  "description": "precompiles jade into javascript functions",
+  "version": "0.1.0",
+  "author": "Tauren Mills <tauren@groovee.com>",
+  "repository": {
+      "type": "git",
+      "url": "http://github.com/tauren/jade-precompile.git" 
+  },
+  "keywords": ["jade", "uglify", "compile"],
+  "main": "./lib/webservice",
+  "dependencies": {
+    "jade": ">= 0.11.0",
+    "uglify-js": ">= 1.0.1"
+  },
+  "engines": { "node": ">= 0.4.0" }
+}

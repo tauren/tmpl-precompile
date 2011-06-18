@@ -1,0 +1,25 @@
+{
+	"relative": true,
+	"groups": [
+		{
+			"uglify": true,
+			"namespace": "NS.uglified",
+			"source": "/templates/",
+			"output": "/output/uglified.js",
+			"templates": [
+				"layout",
+				"root"
+			]
+		},
+		{
+			"uglify": false,
+			"namespace": "NS.templates",
+			"source": "/templates/",
+			"output": "/output/templates.js",
+			"templates": [
+				"layout",
+				"root"
+			]
+		}
+	]
+}
