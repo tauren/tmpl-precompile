@@ -1,14 +1,14 @@
 # jade-precompile - Jade Template Precompiler
 
-jade-precompile will process a group of jade templates and output a javascript file containing a
-precompiled function for each template. 
+jade-precompile will process a group of jade templates and output a javascript file containing
+precompiled functions for all templates in the group. 
 
 A primary use case is to send a javascript file containing precompiled jade templates to a browser.
-The template can then be rendered by simply calling a function. Jade does not need to be included 
+The template can then be rendered by simply calling a function. Jade.js does not need to be included 
 client-side for the templates to render, as the templates have been converted into pure javascript 
 functions.
 
-*NOTE:* This module is my first foray into any node.js technologies, including npm, jade, and uglify.
+**NOTE:** This module is my first foray into any node.js technologies, including npm, jade, and uglify.
 I'm not even sure if precompiling jade templates to serve to a browser is a good idea. The size of 
 each output script for a tiny template is 2KB or 1.25KB uglified. An application with many large 
 templates will probably find that using jade.js in the browser might actually be better. This 
@@ -22,7 +22,7 @@ jade-precompile can be run from a shell command prompt, although it actually run
 ### Basic Usage
 
     cd examples
-    jade-precompile
+    ../bin/jade-precompile
 
 By default, jade-precompile will look for a settings file named `jade-precompile.json` in the
 current directory. This settings file defines which jade templates should be precompiled and the
@@ -31,6 +31,9 @@ output javascript file to save them in.
 It is possible to specify a custom settings file as a command line parameter:
 
     jade-precompile settings.json
+
+I hope to learn how to install this module via NPM and have the `jade-precompile` script be
+available in the PATH so it can be used from anywhere.
 
 ## Settings
 
@@ -118,11 +121,13 @@ in each string.
 
 ## Installation
 
-This repo contains a precompiled `jade-precompile.js` file, but if you make changes to the
-`jade-precompile.coffee` files, you need to recompile it:
+This repo contains a precompiled `bin/jade-precompile` file, but if you make changes to the
+`jade-precompile.coffee` file, you need to recompile it. Also make sure the script is executable:
 
+    cd bin
     coffee -b -c jade-precompile.coffee
+    mv jade-precompile.coffee jade-precompile
+    chmod 755 lib/jade-precompile.js
 
-Make sure the script is executable:
-
-     chmod 755 lib/jade-precompile.js
+I haven't learned how to create an NPM module yet, if anyone wants to fork and help with this, it would
+be much appreciated!
