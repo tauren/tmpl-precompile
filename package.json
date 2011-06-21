@@ -1,13 +1,13 @@
 {
-  "name": "jade-precompile",
-  "description": "precompiles jade into javascript functions",
-  "version": "0.1.0",
+  "name": "tmpl-precompile",
+  "description": "precompiles templates into javascript functions",
+  "version": "0.1.1",
   "author": "Tauren Mills <tauren@groovee.com>",
   "repository": {
       "type": "git",
-      "url": "http://github.com/tauren/jade-precompile.git" 
+      "url": "http://github.com/tauren/tmpl-precompile.git" 
   },
-  "keywords": ["jade", "uglify", "compile"],
+  "keywords": ["jade", "uglify", "compile", "templates"],
   "main": "./lib/webservice",
   "dependencies": {
     "jade": ">= 0.11.0",

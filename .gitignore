@@ -1,1 +1,3 @@
+*.sublime-project
+tmpl-precompile.sublime-project
 node_modules

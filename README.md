@@ -1,12 +1,15 @@
-# jade-precompile - Jade Template Precompiler
+# tmpl-precompile - Template Precompiler
 
-jade-precompile will process a group of jade templates and output a javascript file containing
+tmpl-precompile will process a group of templates and output a javascript file containing
 precompiled functions for all templates in the group. 
 
-A primary use case is to send a javascript file containing precompiled jade templates to a browser.
-The template can then be rendered by simply calling a function. Jade.js does not need to be included 
-client-side for the templates to render, as the templates have been converted into pure javascript 
-functions.
+A primary use case is to send a javascript file containing precompiled templates to a browser. The
+template can then be rendered by simply calling a function. The template compiler does not need to 
+be included client-side for the templates to render, as the templates have been converted into pure
+javascript functions.
+
+Currently the project supports Jade templates, although it will be enhanced to support other
+templating solutions.
 
 **NOTE:** This module is my first foray into any node.js technologies, including npm, jade, and uglify.
 I'm not even sure if precompiling jade templates to serve to a browser is a good idea. The size of 
@@ -17,27 +20,27 @@ further development.
 
 ## Usage
 
-jade-precompile can be run from a shell command prompt, although it actually runs within node.js. 
+tmpl-precompile can be run from a shell command prompt, although it actually runs within node.js. 
 
 ### Basic Usage
 
     cd examples
-    ../bin/jade-precompile
+    ../bin/tmpl-precompile
 
-By default, jade-precompile will look for a settings file named `jade-precompile.json` in the
-current directory. This settings file defines which jade templates should be precompiled and the
+By default, tmpl-precompile will look for a settings file named `tmpl-precompile.json` in the
+current directory. This settings file defines which templates should be precompiled and the
 output javascript file to save them in.
 
 It is possible to specify a custom settings file as a command line parameter:
 
-    jade-precompile settings.json
+    tmpl-precompile settings.json
 
-I hope to learn how to install this module via NPM and have the `jade-precompile` script be
+I hope to learn how to install this module via NPM and have the `tmpl-precompile` script be
 available in the PATH so it can be used from anywhere.
 
 ## Settings
 
-The settings file defines one or more groups of jade templates. Each group of templates will be saved
+The settings file defines one or more groups of templates. Each group of templates will be saved
 into a separate output file. Each output can be uglified. File paths can be relative to the current
 working directory or to the file system root.
 
@@ -94,7 +97,7 @@ then source and output are relative to the file system root.
 ### groups
 
 This must be an array of objects, even if only one group is specified. Each object represents a
-group of jade template files and the options used to process them.
+group of template files and the options used to process them.
 
 ### uglify
 
@@ -121,13 +124,13 @@ in each string.
 
 ## Installation
 
-This repo contains a precompiled `bin/jade-precompile` file, but if you make changes to the
-`jade-precompile.coffee` file, you need to recompile it. Also make sure the script is executable:
+This repo contains a precompiled `bin/tmpl-precompile` file, but if you make changes to the
+`tmpl-precompile.coffee` file, you need to recompile it. Also make sure the script is executable:
 
     cd bin
-    coffee -b -c jade-precompile.coffee
-    mv jade-precompile.coffee jade-precompile
-    chmod 755 lib/jade-precompile.js
+    coffee -b -c tmpl-precompile.coffee
+    mv tmpl-precompile.coffee tmpl-precompile
+    chmod 755 lib/tmpl-precompile.js
 
 I haven't learned how to create an NPM module yet, if anyone wants to fork and help with this, it would
 be much appreciated!

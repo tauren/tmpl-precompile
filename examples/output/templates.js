@@ -33,7 +33,7 @@ function attrs(obj){
     for (var i = 0; i < len; ++i) {
       var key = keys[i]
         , val = obj[key];
-      if (typeof val === 'boolean' || val === '' || val == null) {
+      if ('boolean' == typeof val || null == val) {
         if (val) {
           terse
             ? buf.push(key)
@@ -127,7 +127,7 @@ function attrs(obj){
     for (var i = 0; i < len; ++i) {
       var key = keys[i]
         , val = obj[key];
-      if (typeof val === 'boolean' || val === '' || val == null) {
+      if ('boolean' == typeof val || null == val) {
         if (val) {
           terse
             ? buf.push(key)
