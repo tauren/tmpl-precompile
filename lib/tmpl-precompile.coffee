@@ -22,11 +22,15 @@ buildGroup = (group) ->
 	buf = ''
 	for template in group.templates
 		buf += compileTemplate(template, group).toString() 
-	buf = uglifyOutput buf if group.uglify
-	console.log 'Saving '+ group.output
+	if group.uglify
+		console.log 'Saving and Uglifying '+ group.output
+		buf = uglifyOutput buf 
+	else
+		console.log 'Saving '+ group.output
 	fs.writeFileSync cwd + group.output, buf
 
 exports.precompile = (settings,dir) ->
+	console.log(settings)
 	cwd = dir
 	for group in settings.groups
 		buildGroup group

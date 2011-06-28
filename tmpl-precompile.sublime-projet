@@ -11,7 +11,7 @@
 			"file": "/home/tauren/Desktop/projects/github/tmpl-precompile/README.md",
 			"settings":
 			{
-				"buffer_size": 4543,
+				"buffer_size": 4642,
 				"line_ending": "Unix"
 			}
 		},
@@ -32,10 +32,18 @@
 			}
 		},
 		{
+			"file": "/home/tauren/Desktop/projects/github/tmpl-precompile/bin/tmpl-precompile.js",
+			"settings":
+			{
+				"buffer_size": 377,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "/home/tauren/Desktop/projects/github/tmpl-precompile/.gitignore",
 			"settings":
 			{
-				"buffer_size": 12,
+				"buffer_size": 63,
 				"line_ending": "Unix"
 			}
 		},
@@ -51,7 +59,7 @@
 			"file": "/home/tauren/Desktop/projects/github/tmpl-precompile/package.json",
 			"settings":
 			{
-				"buffer_size": 460,
+				"buffer_size": 478,
 				"line_ending": "Unix"
 			}
 		},
@@ -67,11 +75,11 @@
 	"build_system": "",
 	"file_history":
 	[
+		"/home/tauren/Desktop/projects/github/tmpl-precompile/examples/output/uglified.js",
+		"/home/tauren/Desktop/projects/github/tmpl-precompile/examples/output/templates.js",
 		"/home/tauren/Desktop/projects/github/tmpl-precompile/bin/tmpl-precompile.js",
 		"/home/tauren/Desktop/projects/github/tmpl-precompile/LICENSE",
 		"/home/tauren/Desktop/projects/github/tmpl-precompile/lib/tmpl-precompile.js",
-		"/home/tauren/Desktop/projects/github/tmpl-precompile/examples/output/templates.js",
-		"/home/tauren/Desktop/projects/github/tmpl-precompile/examples/output/uglified.js",
 		"/home/tauren/Desktop/projects/github/tmpl-precompile/bin/tmpl-precompile",
 		"/home/tauren/Desktop/projects/github/tmpl-precompile/templates.js",
 		"/home/tauren/Desktop/projects/github/tmpl-precompile/node_modules/tmpl/bin/jade",
@@ -112,7 +120,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -120,15 +128,15 @@
 					"file": "/home/tauren/Desktop/projects/github/tmpl-precompile/README.md",
 					"settings":
 					{
-						"buffer_size": 4543,
+						"buffer_size": 4642,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1027,
-								1027
+								4501,
+								4501
 							]
 						],
 						"settings":
@@ -136,7 +144,7 @@
 							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0,
-						"translation.y": 0,
+						"translation.y": 1584,
 						"zoom_level": 1
 					},
 					"type": "text"
@@ -153,8 +161,8 @@
 						"selection":
 						[
 							[
-								700,
-								700
+								620,
+								620
 							]
 						],
 						"settings":
@@ -196,18 +204,44 @@
 				},
 				{
 					"buffer": 3,
-					"file": "/home/tauren/Desktop/projects/github/tmpl-precompile/.gitignore",
+					"file": "/home/tauren/Desktop/projects/github/tmpl-precompile/bin/tmpl-precompile.js",
 					"settings":
 					{
-						"buffer_size": 12,
+						"buffer_size": 377,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12,
-								12
+								377,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0,
+						"translation.y": 0,
+						"zoom_level": 1
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/tauren/Desktop/projects/github/tmpl-precompile/.gitignore",
+					"settings":
+					{
+						"buffer_size": 63,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								63,
+								63
 							]
 						],
 						"settings":
@@ -221,7 +255,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "/home/tauren/Desktop/projects/github/tmpl-precompile/bin/tmpl-precompile.coffee",
 					"settings":
 					{
@@ -232,8 +266,8 @@
 						"selection":
 						[
 							[
-								310,
-								310
+								110,
+								110
 							]
 						],
 						"settings":
@@ -247,19 +281,19 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "/home/tauren/Desktop/projects/github/tmpl-precompile/package.json",
 					"settings":
 					{
-						"buffer_size": 460,
+						"buffer_size": 478,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								459,
-								459
+								477,
+								477
 							]
 						],
 						"settings":
@@ -275,7 +309,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "/home/tauren/Desktop/projects/github/tmpl-precompile/examples/tmpl-precompile.json",
 					"settings":
 					{
@@ -286,8 +320,8 @@
 						"selection":
 						[
 							[
-								33,
-								33
+								288,
+								288
 							]
 						],
 						"settings":

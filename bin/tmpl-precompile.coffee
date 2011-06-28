@@ -9,4 +9,5 @@ settings = JSON.parse fs.readFileSync jsonfile, 'utf8'
 settings.relative = settings.relative || true
 cwd = if settings.relative then process.cwd() else ''
 
+console.log 'Using configuration file: ' + process.cwd() + '/' + jsonfile
 precompile(settings,cwd)
