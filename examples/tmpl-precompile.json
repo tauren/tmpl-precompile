@@ -8,7 +8,10 @@
 			"output": "/output/uglified.js",
 			"templates": [
 				"layout",
-				"root"
+				"root",
+				"level1/root",
+				"level1/level2/root",
+				"level1/level2/level3/root"
 			]
 		},
 		{
@@ -16,6 +19,42 @@
 			"namespace": "NS.templates",
 			"source": "/templates/",
 			"output": "/output/templates.js",
+			"templates": [
+				"layout",
+				"root",
+				"level1/root",
+				"level1/level2/root",
+				"level1/level2/level3/root"
+			]
+		},
+		{
+			"uglify": false,
+			"namespace": "NS.very.long.namespace",
+			"source": "/templates/",
+			"output": "/output/long-namespace.js",
+			"templates": [
+				"layout",
+				"root",
+				"level1/root",
+				"level1/level2/root",
+				"level1/level2/level3/root"
+			]
+		},
+		{
+			"uglify": false,
+			"namespace": "NS.single.level",
+			"source": "/templates/",
+			"output": "/output/single-level.js",
+			"templates": [
+				"layout",
+				"root"
+			]
+		}, 
+		{
+			"uglify": false,
+			"namespace": "singleNamespace",
+			"source": "/templates/",
+			"output": "/output/single-namespace.js",
 			"templates": [
 				"layout",
 				"root"
