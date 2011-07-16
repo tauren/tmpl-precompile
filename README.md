@@ -18,9 +18,11 @@ templates will probably find that using jade.js in the browser might actually be
 project is really just intended as an experiment for now, but if it proves useful I will pursue 
 further development.
 
-## Usage
+## Installation
 
-tmpl-precompile can be run from a shell command prompt, although it actually runs within node.js. 
+`tmpl-precompile` can be run from a shell command prompt, although it actually runs within node.js. To install, do:
+    
+    npm install tmpl-precompile -g
 
 ### Basic Usage
 
@@ -34,9 +36,6 @@ output javascript file to save them in.
 It is possible to specify a custom settings file as a command line parameter:
 
     tmpl-precompile settings.json
-
-I hope to learn how to install this module via NPM and have the `tmpl-precompile` script be
-available in the PATH so it can be used from anywhere.
 
 ## Settings
 
