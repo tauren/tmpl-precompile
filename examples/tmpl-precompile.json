@@ -2,7 +2,6 @@
 	"relative": true,
 	"groups": [
 		{
-			"uglify": true,
 			"namespace": "NS.uglified",
 			"source": "/templates/",
 			"output": "/output/uglified.js",
