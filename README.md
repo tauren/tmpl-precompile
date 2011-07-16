@@ -148,23 +148,18 @@ This must be an array of strings. Each string represents the name of a template.
 used both as file names and as function names. There must be a `*.jade` file with the name specified 
 in each string.
 
-## Installation
+## Development
 
-This repo contains a precompiled `bin/tmpl-precompile` file, but if you make changes to the
-`tmpl-precompile.coffee` file, you need to recompile it. Also make sure the script is executable:
+If you make changes to the `bin/tmpl-precompile.coffee` file, you need to recompile it. Also make sure the script is executable:
 
     cd bin
     coffee -b -c tmpl-precompile.coffee
     mv tmpl-precompile.coffee tmpl-precompile
     chmod 755 lib/tmpl-precompile.js
 
-## Development
-
 A `Cakefile` file is provided in the root directory with functions that will compile the coffee scripts and rename the shell script. To execute `Cakefile`s remember to install `coffee-script` as global node module: `npm install coffee-script -g`.
 
-```
-cake test                 # Run execution tests for tmpl-precompile
-cake compile              # Compiles lib and bin files
-cake bin                  # Compiles project
-cake watch                # Watches all coffeescript files for changes
-```
+    cake test                 # Run execution tests for tmpl-precompile
+    cake compile              # Compiles lib and bin files
+    cake bin                  # Compiles executable
+    cake watch                # Watches all coffeescript files for changes

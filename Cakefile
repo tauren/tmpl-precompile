@@ -22,7 +22,7 @@ task 'compile', 'Compiles lib and bin files', ->
   '''
   printOutput(tasks)
   
-task 'bin', 'Compiles project', ->
+task 'bin', 'Compiles executable', ->
   tasks = exec '''
     echo "Compiling files in $BASEDIR/bin"
     coffee -b -o bin/ -c bin/ 
