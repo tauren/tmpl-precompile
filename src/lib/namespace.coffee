@@ -104,6 +104,8 @@ createNamespaces = (group, namespaces, callback) ->
       if t is namespaces.length-1
         next()
         
-exports.get = (group, callback) ->
-  namespaces = []
-  checkGroupNamespace(group, namespaces, callback)
+init = (settings, callback) ->
+  console.log settings
+  callback('function not ready')
+        
+module.exports = init

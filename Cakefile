@@ -10,8 +10,12 @@ task 'watch', 'Watches all coffeescript files for changes', ->
   printOutput(coffee)
 
 task 'test', 'Run execution tests for tmpl-precompile', ->
-  test = exec 'bin/tmpl-precompile examples/tmpl-precompile.json'
+  test = exec 'vows test/*.test.js'
   printOutput(test)
+
+task 'examples', 'Build examples', ->
+  examples = exec 'bin/tmpl-precompile examples/tmpl-precompile.json'
+  printOutput(examples)
 
 task 'compile', 'Compiles project', ->
   tasks = exec '''
