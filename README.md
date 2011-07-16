@@ -158,6 +158,8 @@ This repo contains a precompiled `bin/tmpl-precompile` file, but if you make cha
     mv tmpl-precompile.coffee tmpl-precompile
     chmod 755 lib/tmpl-precompile.js
 
+## Development
+
 A `Cakefile` file is provided in the root directory with functions that will compile the coffee scripts and rename the shell script. To execute `Cakefile`s remember to install `coffee-script` as global node module: `npm install coffee-script -g`.
 
 ```
