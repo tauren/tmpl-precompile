@@ -11,6 +11,7 @@ javascript functions.
 Currently the project supports Jade templates, although it will be enhanced to support other
 templating solutions.
 
+
 ## Installation
 
 `tmpl-precompile` can be run from a shell command prompt, although it actually runs within node.js. To install, do:

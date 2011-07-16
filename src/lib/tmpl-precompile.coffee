@@ -118,7 +118,7 @@ createNamespaces = (group, namespaces) ->
   
   # Callback
   next = ->
-    namespaces = nameSpaceBuf # Converts the array object into a string to pass to compile()
+    namespaces = 'var ' + nameSpaceBuf # Converts the array object into a string to pass to compile()
     compile(group, namespaces)
   
   # Appends the group namespace declarations

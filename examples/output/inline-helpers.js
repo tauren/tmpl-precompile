@@ -1,4 +1,4 @@
-inlineHelpers = inlineHelpers || {};
+var inlineHelpers = inlineHelpers || {};
 inlineHelpers.layout = function anonymous(locals) {
 function attrs(obj){
   var buf = []
@@ -36,24 +36,13 @@ function escape(html){
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<!DOCTYPE html>');
-buf.push('<html>');
-buf.push('<head>');
-buf.push('<title>');
-buf.push('</title>');
-buf.push('</head>');
-buf.push('<body>');
-buf.push('<h1>');
-buf.push('Content goes here');
-buf.push('</h1>');
 buf.push('<div');
-buf.push(attrs({ terse: true, 'id':('container') }));
+buf.push(attrs({ 'id':('content') }));
 buf.push('>');
-var __val__ = body
-buf.push(null == __val__ ? "" : __val__);
+buf.push('<h1>');
+buf.push('Hello world!');
+buf.push('</h1>');
 buf.push('</div>');
-buf.push('</body>');
-buf.push('</html>');
 }
 return buf.join("");
 };
