@@ -31,44 +31,15 @@ function escape(html){
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 }
- var jadeHelpers = {attrs: attrs, escape: escape}; 
+var jade = {
+  attrs: attrs,
+  escape: escape
+};
 NS = NS || {};
 NS.single = NS.single || {};
 NS.single.level = NS.single.level || {};
 NS.single.level.layout = function anonymous(locals) {
-function attrs(obj){
-  var buf = []
-    , terse = obj.terse;
-  delete obj.terse;
-  var keys = Object.keys(obj)
-    , len = keys.length;
-  if (len) {
-    buf.push('');
-    for (var i = 0; i < len; ++i) {
-      var key = keys[i]
-        , val = obj[key];
-      if ('boolean' == typeof val || null == val) {
-        if (val) {
-          terse
-            ? buf.push(key)
-            : buf.push(key + '="' + key + '"');
-        }
-      } else if ('class' == key && Array.isArray(val)) {
-        buf.push(key + '="' + escape(val.join(' ')) + '"');
-      } else {
-        buf.push(key + '="' + escape(val) + '"');
-      }
-    }
-  }
-  return buf.join(' ');
-}
-function escape(html){
-  return String(html)
-    .replace(/&(?!\w+;)/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
+var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
 var interp;
@@ -94,39 +65,7 @@ buf.push('</html>');
 return buf.join("");
 };
 NS.single.level.root = function anonymous(locals) {
-function attrs(obj){
-  var buf = []
-    , terse = obj.terse;
-  delete obj.terse;
-  var keys = Object.keys(obj)
-    , len = keys.length;
-  if (len) {
-    buf.push('');
-    for (var i = 0; i < len; ++i) {
-      var key = keys[i]
-        , val = obj[key];
-      if ('boolean' == typeof val || null == val) {
-        if (val) {
-          terse
-            ? buf.push(key)
-            : buf.push(key + '="' + key + '"');
-        }
-      } else if ('class' == key && Array.isArray(val)) {
-        buf.push(key + '="' + escape(val.join(' ')) + '"');
-      } else {
-        buf.push(key + '="' + escape(val) + '"');
-      }
-    }
-  }
-  return buf.join(' ');
-}
-function escape(html){
-  return String(html)
-    .replace(/&(?!\w+;)/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
+var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
 var interp;

@@ -70,6 +70,17 @@
 				"layout",
 				"root"
 			]
+		},
+		{
+			"uglify": false,
+			"namespace": "inlineHelpers",
+			"source": "/templates/",
+			"inline": true,
+			"output": "/output/inline-helpers.js",
+			"templates": [
+				"layout",
+				"root"
+			]
 		}
 	]
 }
