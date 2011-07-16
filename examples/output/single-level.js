@@ -42,6 +42,8 @@ function attrs(obj){
             ? buf.push(key)
             : buf.push(key + '="' + key + '"');
         }
+      } else if ('class' == key && Array.isArray(val)) {
+        buf.push(key + '="' + escape(val.join(' ')) + '"');
       } else {
         buf.push(key + '="' + escape(val) + '"');
       }
@@ -59,8 +61,7 @@ function escape(html){
 }
 
 var buf = [];
-with (locals || {}) {var interp;
-__.lineno = 1;
+with (locals || {}) {__.lineno = 1;
 __.lineno = 1;
 buf.push('<!DOCTYPE html>');
 __.lineno = 3;
@@ -137,6 +138,8 @@ function attrs(obj){
             ? buf.push(key)
             : buf.push(key + '="' + key + '"');
         }
+      } else if ('class' == key && Array.isArray(val)) {
+        buf.push(key + '="' + escape(val.join(' ')) + '"');
       } else {
         buf.push(key + '="' + escape(val) + '"');
       }
@@ -154,8 +157,7 @@ function escape(html){
 }
 
 var buf = [];
-with (locals || {}) {var interp;
-__.lineno = 1;
+with (locals || {}) {__.lineno = 1;
 __.lineno = 1;
 buf.push('<h2>');
 buf.push('Hello');

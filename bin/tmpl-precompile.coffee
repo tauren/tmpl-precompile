@@ -7,7 +7,16 @@ fs = require 'fs'
 
 settings = JSON.parse fs.readFileSync jsonfile, 'utf8'
 settings.relative = settings.relative || true
-cwd = if settings.relative then process.cwd() else ''
 
-console.log 'Using configuration file: ' + process.cwd() + '/' + jsonfile
+# Get relative directory of jsonfile from the directory of execution
+if settings.relative is false
+  cwd = ''
+else if jsonfile.indexOf '/' > 0
+  match = jsonfile.split(/\//)
+  jsondir = match[0...match.length-1].join('/')
+  cwd = process.cwd() + '/' + jsondir
+else
+  cwd = process.cwd()
+
+console.log 'Using configuration file: ' + cwd
 precompile(settings,cwd)
