@@ -59,6 +59,17 @@
 				"layout",
 				"root"
 			]
+		},
+		{
+			"uglify": false,
+			"namespace": "debugEnabled",
+			"source": "/templates/",
+			"compileDebug": true,
+			"output": "/output/debug-enabled.js",
+			"templates": [
+				"layout",
+				"root"
+			]
 		}
 	]
 }
