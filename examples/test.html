@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+  <script src="output/templates.js" type="text/javascript"></script>
+</head>
+<body>
+  <div id="wrapper"></div>
+  <div id="root"></div>
+  <script>
+    var layoutTmpl = templates.layout.call(this);
+    document.getElementById('wrapper').innerHTML = layoutTmpl;
+    
+    
+    var rootTmpl = templates.root.call(this);
+    document.getElementById('root').innerHTML = rootTmpl;
+  </script>
+</body>
