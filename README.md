@@ -26,12 +26,11 @@ further development.
 
 ### Basic Usage
 
-    cd examples
-    ../bin/tmpl-precompile
-
 By default, tmpl-precompile will look for a settings file named `tmpl-precompile.json` in the
 current directory. This settings file defines which templates should be precompiled and the
-output javascript file to save them in.
+output javascript file to save them in. To run, simply go to the directory with the file and type
+
+    tmpl-precompile
 
 It is possible to specify a custom settings file as a command line parameter:
 
