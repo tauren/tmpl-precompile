@@ -1,6 +1,6 @@
 # tmpl-precompile - Template Precompiler
 
-tmpl-precompile will process a group of templates and output a javascript file containing
+`tmpl-precompile` will process a group of templates and output a javascript file containing
 precompiled functions for all templates in the group. 
 
 A primary use case is to send a javascript file containing precompiled templates to a browser. The
@@ -10,13 +10,6 @@ javascript functions.
 
 Currently the project supports Jade templates, although it will be enhanced to support other
 templating solutions.
-
-**NOTE:** This module is my first foray into any node.js technologies, including npm, jade, and uglify.
-I'm not even sure if precompiling jade templates to serve to a browser is a good idea. The size of 
-each output script for a tiny template is 2KB or 1.25KB uglified. An application with many large 
-templates will probably find that using jade.js in the browser might actually be better. This 
-project is really just intended as an experiment for now, but if it proves useful I will pursue 
-further development.
 
 ## Installation
 
