@@ -153,9 +153,9 @@ extractFunction = (name, buf) ->
 
 optimizeOutput = (group, buf) ->
   # Default setting for optimize is true
-  group.optimize = true unless group.optimize = false
+  group.optimize = true unless group.optimize is false
   # Default setting for helpers is true
-  group.helpers = true unless group.helpers = false
+  group.helpers = true unless group.helpers is false
 
   # TODO: Only parse buffer once, regardless if we are optimizing and/or uglifying
   ast = jsp.parse buf  # parse code and get the initial AST
@@ -220,14 +220,20 @@ compile = (group, namespaces) ->
     };\n
   """
   
+  # Add namespacing
   buf = namespaces || ''
   for template in group.templates
 	  buf += optimizeOutput group, compileTemplate(template, group).toString()
 
-  if group.inline isnt true
-    buf = helpers + buf;
+  # Add helpers
+  if group.helpers isnt false
+    unless group.inline
+      buf = helpers + buf;
   
-  buf = uglifyOutput buf unless group.uglify
+  # Minify file
+  buf = uglifyOutput buf unless group.uglify is false
+  
+  # Write files
   console.log 'Saving ' + (if group.uglify then 'and Uglifying ' else '' ) + group.output
   fs.writeFileSync cwd + group.output, buf
 
@@ -241,13 +247,14 @@ Description: Main precompile function
 
 Params: 
   settings(object): Settings object for tmpl-precompile. Available options include:
-    "uglify": Boolean(default:false), whether to minify JS
 		"namespace": String(Required), namespace object when including templates to browser
 		"source": String(Required), relative path to source directory
 		"output": String(Required), relative path to output directory
-		"templates": Array, names of templates to be precompiled
-    "compileDebug": Boolean(default: false), whether to compile Jade debugging
-    "inline": Boolean(default: false), whether to inline Jade runtime functions
+		"templates": Array(Required), names of templates to be precompiled
+    "compileDebug": Boolean(default: false), whether to include debugging for templates
+    "uglify": Boolean(default:false), whether to minify JS
+    "helpers": Boolean(default: true), whether to include helpers in compiled file
+    "inline": Boolean(default: false), whether to include runtime functions inline
     
   dir(string): Main execution directory
 ###

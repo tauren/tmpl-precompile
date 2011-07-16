@@ -2,7 +2,7 @@
 	"relative": true,
 	"groups": [
 		{
-			"namespace": "NS.uglified",
+			"namespace": "uglified",
 			"source": "/templates/",
 			"output": "/output/uglified.js",
 			"templates": [
@@ -15,7 +15,7 @@
 		},
 		{
 			"uglify": false,
-			"namespace": "NS.templates",
+			"namespace": "templates",
 			"source": "/templates/",
 			"output": "/output/templates.js",
 			"templates": [
@@ -28,7 +28,7 @@
 		},
 		{
 			"uglify": false,
-			"namespace": "NS.very.long.namespace",
+			"namespace": "very.long.namespace",
 			"source": "/templates/",
 			"output": "/output/long-namespace.js",
 			"templates": [
@@ -41,7 +41,7 @@
 		},
 		{
 			"uglify": false,
-			"namespace": "NS.single.level",
+			"namespace": "single.level",
 			"source": "/templates/",
 			"output": "/output/single-level.js",
 			"templates": [
@@ -76,6 +76,17 @@
 			"source": "/templates/",
 			"inline": true,
 			"output": "/output/inline-helpers.js",
+			"templates": [
+				"layout",
+				"root"
+			]
+		},
+		{
+			"uglify": false,
+			"namespace": "noHelpers",
+			"source": "/templates/",
+			"helpers": false,
+			"output": "/output/no-helpers.js",
 			"templates": [
 				"layout",
 				"root"

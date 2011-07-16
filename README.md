@@ -51,8 +51,7 @@ Here is an example settings file:
 		"groups": [
 			{
 				"uglify": true,
-				"optimize": true,
-				"helpers": true,
+				"inline": false,
 				"debug": false,
 				"namespace": "NS.uglified",
 				"source": "/templates/",
@@ -64,9 +63,8 @@ Here is an example settings file:
 			},
 			{
 				"uglify": false,
-				"optimize": false,
-				"helpers": true,
-				"debug": false,
+				"inline": true,
+				"compileDebug": true,
 				"namespace": "NS.templates",
 				"source": "/templates/",
 				"output": "/output/templates.js",
@@ -109,29 +107,27 @@ group of template files and the options used to process them.
 
 If true, then the output file is uglified before saving. If false, the output is not uglified.
 
-### optimize
-
-NOT YET IMPLEMENTED. If true, then a post-processing optimizer is run on any Jade templates. This
-optimizer extracts redundant functions from each individually precompiled script and only adds them
-once into the output file. The output file is also wrapped in a closure. Defaults to true.
-
 ### helpers
 
-NOT YET IMPLEMENTED. If true, then the post-processing optimizer will include any redundant helper
+If `true`, then the post-processing optimizer will include any redundant helper
 functions in the output file. This pertains to Jade templates only. If false, then the helper functions
 are not included in the output file. You must make sure the helpers are loaded onto the client-side
-using some other method or the templates will fail to run. This feature is useful if an app needs to
-load multiple precompiled template files and you don't want to load the same helper functions over and
-over. Defaults to true.
+using some other method or the templates will fail to run. 
+
+This feature is useful if an app needs to load multiple precompiled template files and you don't want to load the same helper functions over and over. Defaults to `true`.
+
+### inline
+
+For `helpers:true`. If `true`, the compiler will include redundant helper functions in every single compiled template. Highly not recommended for client-side as this will significantly increase file size and bloat. Defaults to `false`.
 
 ### debug
 
-NOT YET IMPLEMENTED. 
+`tmpl-precompile`'s own debugging functionality. Not yet implemented. 
 
 ### environment
 
 NOT YET IMPLEMENTED. Provide a way to specify various environments, such as 'development', 'staging', or
-'production'. 
+'production' for presets. 
 
 ### source
 
@@ -164,6 +160,3 @@ This repo contains a precompiled `bin/tmpl-precompile` file, but if you make cha
 
 A `compile.sh` file is provided in the root directory that will compile the coffee scripts and rename
 the shell script.
-
-I haven't learned how to create an NPM module yet, if anyone wants to fork and help with this, it would
-be much appreciated!
