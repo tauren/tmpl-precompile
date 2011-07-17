@@ -6,6 +6,7 @@ path = require 'path'
 util = require 'util'
 jsp = require("uglify-js").parser
 pro = require("uglify-js").uglify
+sys = require 'sys'
 
 # Module requires
 Namespacer = require './namespace'
