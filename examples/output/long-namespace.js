@@ -35,6 +35,7 @@ var jade = {
   attrs: attrs,
   escape: escape
 };
+<<<<<<< .merge_file_Z2ifNL
 var very = very || {};
 very.long = very.long || {};
 very.long.namespace = very.long.namespace || {};
@@ -44,10 +45,21 @@ very.long.namespace.level1 = very.long.namespace.level1 || {};
 very.long.namespace.level1.level2 = very.long.namespace.level1.level2 || {};
 very.long.namespace.level1.level2.level3 = very.long.namespace.level1.level2.level3 || {};
 very.long.namespace.layout = function anonymous(locals) {
+=======
+var NS = NS || {};
+NS.very = NS.very || {};
+NS.very.long = NS.very.long || {};
+NS.very.long.namespace = NS.very.long.namespace || {};
+NS.very.long.namespace.level1 = NS.very.long.namespace.level1 || {};
+NS.very.long.namespace.level1.level2 = NS.very.long.namespace.level1.level2 || {};
+NS.very.long.namespace.level1.level2.level3 = NS.very.long.namespace.level1.level2.level3 || {};
+NS.very.long.namespace.layout = function anonymous(locals) {
+>>>>>>> .merge_file_x0GMN5
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
 var interp;
+<<<<<<< .merge_file_Z2ifNL
 buf.push('<div');
 buf.push(attrs({ 'id':('content') }));
 buf.push('>');
@@ -59,6 +71,30 @@ buf.push('</div>');
 return buf.join("");
 };
 very.long.namespace.root = function anonymous(locals) {
+=======
+buf.push('<!DOCTYPE html>');
+buf.push('<html>');
+buf.push('<head>');
+buf.push('<title>');
+buf.push('</title>');
+buf.push('</head>');
+buf.push('<body>');
+buf.push('<h1>');
+buf.push('Content goes here');
+buf.push('</h1>');
+buf.push('<div');
+buf.push(attrs({ terse: true, 'id':('container') }));
+buf.push('>');
+var __val__ = body
+buf.push(null == __val__ ? "" : __val__);
+buf.push('</div>');
+buf.push('</body>');
+buf.push('</html>');
+}
+return buf.join("");
+};
+NS.very.long.namespace.root = function anonymous(locals) {
+>>>>>>> .merge_file_x0GMN5
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
@@ -72,7 +108,11 @@ buf.push('</p>');
 }
 return buf.join("");
 };
+<<<<<<< .merge_file_Z2ifNL
 very.long.namespace.level1.root = function anonymous(locals) {
+=======
+NS.very.long.namespace.level1.root = function anonymous(locals) {
+>>>>>>> .merge_file_x0GMN5
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
@@ -86,7 +126,11 @@ buf.push('</p>');
 }
 return buf.join("");
 };
+<<<<<<< .merge_file_Z2ifNL
 very.long.namespace.level1.level2.root = function anonymous(locals) {
+=======
+NS.very.long.namespace.level1.level2.root = function anonymous(locals) {
+>>>>>>> .merge_file_x0GMN5
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
@@ -100,7 +144,11 @@ buf.push('</p>');
 }
 return buf.join("");
 };
+<<<<<<< .merge_file_Z2ifNL
 very.long.namespace.level1.level2.level3.root = function anonymous(locals) {
+=======
+NS.very.long.namespace.level1.level2.level3.root = function anonymous(locals) {
+>>>>>>> .merge_file_x0GMN5
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {

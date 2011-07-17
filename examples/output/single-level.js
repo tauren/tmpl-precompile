@@ -35,13 +35,21 @@ var jade = {
   attrs: attrs,
   escape: escape
 };
+<<<<<<< .merge_file_qPAn06
 var single = single || {};
 single.level = single.level || {};
 single.level.layout = function anonymous(locals) {
+=======
+var NS = NS || {};
+NS.single = NS.single || {};
+NS.single.level = NS.single.level || {};
+NS.single.level.layout = function anonymous(locals) {
+>>>>>>> .merge_file_ysJiHX
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
 var interp;
+<<<<<<< .merge_file_qPAn06
 buf.push('<div');
 buf.push(attrs({ 'id':('content') }));
 buf.push('>');
@@ -53,6 +61,30 @@ buf.push('</div>');
 return buf.join("");
 };
 single.level.root = function anonymous(locals) {
+=======
+buf.push('<!DOCTYPE html>');
+buf.push('<html>');
+buf.push('<head>');
+buf.push('<title>');
+buf.push('</title>');
+buf.push('</head>');
+buf.push('<body>');
+buf.push('<h1>');
+buf.push('Content goes here');
+buf.push('</h1>');
+buf.push('<div');
+buf.push(attrs({ terse: true, 'id':('container') }));
+buf.push('>');
+var __val__ = body
+buf.push(null == __val__ ? "" : __val__);
+buf.push('</div>');
+buf.push('</body>');
+buf.push('</html>');
+}
+return buf.join("");
+};
+NS.single.level.root = function anonymous(locals) {
+>>>>>>> .merge_file_ysJiHX
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {

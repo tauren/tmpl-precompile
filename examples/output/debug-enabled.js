@@ -37,7 +37,11 @@ var jade = {
 };
 var debugEnabled = debugEnabled || {};
 debugEnabled.layout = function anonymous(locals) {
+<<<<<<< .merge_file_Qm7CKt
 var __ = { lineno: 1, input: "#content\n  h1 Hello world!", filename: undefined };
+=======
+var __ = { lineno: 1, input: "!!! 5\nhtml\n\thead\n\t\ttitle\n\tbody\n\t\th1 Content goes here\n\t\t#container!= body\n", filename: undefined };
+>>>>>>> .merge_file_JmKYI0
 var rethrow = jade.rethrow;
 try {
 var attrs = jade.attrs, escape = jade.escape;
@@ -46,6 +50,7 @@ with (locals || {}) {
 var interp;
 __.lineno = 1;
 __.lineno = 1;
+<<<<<<< .merge_file_Qm7CKt
 buf.push('<div');
 buf.push(attrs({ 'id':('content') }));
 buf.push('>');
@@ -56,6 +61,38 @@ buf.push('Hello world!');
 __.lineno = undefined;
 buf.push('</h1>');
 buf.push('</div>');
+=======
+buf.push('<!DOCTYPE html>');
+__.lineno = 3;
+buf.push('<html>');
+__.lineno = undefined;
+__.lineno = 4;
+buf.push('<head>');
+__.lineno = undefined;
+__.lineno = 5;
+buf.push('<title>');
+__.lineno = undefined;
+buf.push('</title>');
+buf.push('</head>');
+__.lineno = 6;
+buf.push('<body>');
+__.lineno = undefined;
+__.lineno = 6;
+buf.push('<h1>');
+buf.push('Content goes here');
+__.lineno = undefined;
+buf.push('</h1>');
+__.lineno = 7;
+buf.push('<div');
+buf.push(attrs({ terse: true, 'id':('container') }));
+buf.push('>');
+var __val__ = body
+buf.push(null == __val__ ? "" : __val__);
+__.lineno = undefined;
+buf.push('</div>');
+buf.push('</body>');
+buf.push('</html>');
+>>>>>>> .merge_file_JmKYI0
 }
 return buf.join("");
 } catch (err) {

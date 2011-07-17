@@ -1,11 +1,11 @@
 `#!/usr/bin/env node
-
 `
-jsonfile = process.ARGV[2] || 'tmpl-precompile.json'
+jsonfile = process.ARGV[process.ARGV.length-1] || 'tmpl-precompile.json'
 precompile = require('../lib/tmpl-precompile').precompile
 fs = require 'fs'
 
 settings = JSON.parse fs.readFileSync jsonfile, 'utf8'
+settings.args = process.ARGV
 settings.relative = settings.relative || true
 
 # Get relative directory of jsonfile from the directory of execution
@@ -18,5 +18,5 @@ else if jsonfile.indexOf '/' > 0
 else
   cwd = process.cwd()
 
-console.log 'Using configuration file: ' + cwd
+console.log 'Using configuration file: ' + cwd + '/' + jsonfile
 precompile(settings,cwd)
