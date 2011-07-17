@@ -10,11 +10,19 @@ pro = require("uglify-js").uglify
 # Module requires
 namespace = require './namespace'
 {extractFunction, optimizeOutput} = require './optimize'
+{extend} = require './helpers'
 
-# Globals
-
-cwd = ''
-settings = {}
+# Global settings
+globalSettings = {
+  relative: true
+  dir: (->
+    if module.parent.id is '.'
+      process.cwd()
+    else
+      d = module.parent.id.split('/')
+      d[0...d.length-1].join('/')
+  )()
+}
 
 ###
 Precompiler(groupSettings)
@@ -33,12 +41,16 @@ settings:
 class Precompiler
   constructor: (groupSettings, callback) ->
     @settings = groupSettings
-    @settings.uglify = groupSettings.uglify || true
     
+    if @settings.source
+      @settings.source = path.normalize(globalSettings.dir + '/' + @settings.source)
+    if @settings.output
+      @settings.output = path.normalize(globalSettings.dir + '/' + @settings.output)
+        
     self = @
     
     namespace(@settings, (err, res) ->
-      if err? then console.log err
+      if err? then throw err
       else 
         self.namespaces = res.join('\n') + '\n'
     )
@@ -62,15 +74,12 @@ class Precompiler
     
     buf = @namespaces + buf if namespaces isnt false
     buf = @helpers + buf if inline isnt true
-    #buf = @uglifyOutput buf if uglify
-    
-    console.log(@namespaces)
-    
+    buf = @uglifyOutput buf if uglify isnt false
     
     if callback? then callback(null, buf)
     else
-      console.log 'Saving ' + (if uglify then 'and Uglifying ' else '' ) + output
-      fs.writeFileSync cwd + output, buf
+      console.log 'Saving ' + (if uglify isnt false then 'and Uglifying ' else '' ) + output
+      fs.writeFileSync @settings.output, buf
 
   ###
   compileTemplate(template, group)
@@ -89,9 +98,10 @@ class Precompiler
     if @settings.verbose
       console.log "Compiling #{namespace}.#{templateNamespace} from #{source+template}"
     
-    dir = path.normalize(process.cwd() + '/test/' + source + template + '.jade')
-    data = fs.readFileSync(dir, 'utf8')
-    source = namespace + '.' + templateNamespace + ' = ' + jade.compile(data, {compileDebug: compileDebug || false, inline: inline || false}) + ';\n'
+    sourceFile = source + template + '.jade'
+    data = fs.readFileSync(sourceFile, 'utf8')
+    
+    namespace + '.' + templateNamespace + ' = ' + jade.compile(data, {compileDebug: compileDebug || false, inline: inline || false}) + ';\n'
     
 
   helpers: (->
@@ -120,7 +130,6 @@ class Precompiler
   	ast = pro.ast_squeeze ast # get an AST with compression optimizations
   	pro.gen_code ast # compressed code here
 
-
 ###
 ---Module exports---
 
@@ -134,15 +143,16 @@ Params:
   dir(string): Main execution directory
 ###
 
-module.exports.precompile = (newSettings,dir) ->
-	cwd = dir
-	settings = newSettings
-	for group in settings.groups
-		namespace(group, (err, res) ->
-      if err? then console.log err
-      else 
-        namespaces = res.join('\n') + '\n'
-        compile(group, namespaces)
-    )
-
+module.exports.precompile = (settings,dir) ->
+	extend(globalSettings, settings)
+	globalSettings.dir = dir
+	
+	groups = []
+	
+	for groupSettings in settings.groups
+	  groups.push new Precompiler(groupSettings)
+  
+  for group in groups
+    group.compile()
+    
 module.exports.Precompiler = Precompiler

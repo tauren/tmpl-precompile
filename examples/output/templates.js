@@ -34,28 +34,16 @@ function escape(html){
 var jade = {
   attrs: attrs,
   escape: escape
-};
-<<<<<<< .merge_file_NuBKJq
+}
 var templates = templates || {};
-templates.level1 = templates.level1 || {};
-templates.level1.level2 = templates.level1.level2 || {};
 templates.level1 = templates.level1 || {};
 templates.level1.level2 = templates.level1.level2 || {};
 templates.level1.level2.level3 = templates.level1.level2.level3 || {};
 templates.layout = function anonymous(locals) {
-=======
-var NS = NS || {};
-NS.templates = NS.templates || {};
-NS.templates.level1 = NS.templates.level1 || {};
-NS.templates.level1.level2 = NS.templates.level1.level2 || {};
-NS.templates.level1.level2.level3 = NS.templates.level1.level2.level3 || {};
-NS.templates.layout = function anonymous(locals) {
->>>>>>> .merge_file_rtwbUD
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
 var interp;
-<<<<<<< .merge_file_NuBKJq
 buf.push('<div');
 buf.push(attrs({ 'id':('content') }));
 buf.push('>');
@@ -67,30 +55,6 @@ buf.push('</div>');
 return buf.join("");
 };
 templates.root = function anonymous(locals) {
-=======
-buf.push('<!DOCTYPE html>');
-buf.push('<html>');
-buf.push('<head>');
-buf.push('<title>');
-buf.push('</title>');
-buf.push('</head>');
-buf.push('<body>');
-buf.push('<h1>');
-buf.push('Content goes here');
-buf.push('</h1>');
-buf.push('<div');
-buf.push(attrs({ terse: true, 'id':('container') }));
-buf.push('>');
-var __val__ = body
-buf.push(null == __val__ ? "" : __val__);
-buf.push('</div>');
-buf.push('</body>');
-buf.push('</html>');
-}
-return buf.join("");
-};
-NS.templates.root = function anonymous(locals) {
->>>>>>> .merge_file_rtwbUD
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
@@ -104,11 +68,7 @@ buf.push('</p>');
 }
 return buf.join("");
 };
-<<<<<<< .merge_file_NuBKJq
 templates.level1.root = function anonymous(locals) {
-=======
-NS.templates.level1.root = function anonymous(locals) {
->>>>>>> .merge_file_rtwbUD
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
@@ -122,11 +82,7 @@ buf.push('</p>');
 }
 return buf.join("");
 };
-<<<<<<< .merge_file_NuBKJq
 templates.level1.level2.root = function anonymous(locals) {
-=======
-NS.templates.level1.level2.root = function anonymous(locals) {
->>>>>>> .merge_file_rtwbUD
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
@@ -140,11 +96,7 @@ buf.push('</p>');
 }
 return buf.join("");
 };
-<<<<<<< .merge_file_NuBKJq
 templates.level1.level2.level3.root = function anonymous(locals) {
-=======
-NS.templates.level1.level2.level3.root = function anonymous(locals) {
->>>>>>> .merge_file_rtwbUD
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {

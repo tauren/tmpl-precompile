@@ -34,14 +34,13 @@ function escape(html){
 var jade = {
   attrs: attrs,
   escape: escape
-};
+}
 var singleNamespace = singleNamespace || {};
 singleNamespace.layout = function anonymous(locals) {
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];
 with (locals || {}) {
 var interp;
-<<<<<<< .merge_file_Dr4awg
 buf.push('<div');
 buf.push(attrs({ 'id':('content') }));
 buf.push('>');
@@ -49,26 +48,6 @@ buf.push('<h1>');
 buf.push('Hello world!');
 buf.push('</h1>');
 buf.push('</div>');
-=======
-buf.push('<!DOCTYPE html>');
-buf.push('<html>');
-buf.push('<head>');
-buf.push('<title>');
-buf.push('</title>');
-buf.push('</head>');
-buf.push('<body>');
-buf.push('<h1>');
-buf.push('Content goes here');
-buf.push('</h1>');
-buf.push('<div');
-buf.push(attrs({ terse: true, 'id':('container') }));
-buf.push('>');
-var __val__ = body
-buf.push(null == __val__ ? "" : __val__);
-buf.push('</div>');
-buf.push('</body>');
-buf.push('</html>');
->>>>>>> .merge_file_FfkyBB
 }
 return buf.join("");
 };
