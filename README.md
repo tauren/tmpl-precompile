@@ -152,6 +152,7 @@ If you make changes to the `bin/tmpl-precompile.coffee` file, you need to recomp
 A `Cakefile` file is provided in the root directory with functions that will compile the coffee scripts and rename the shell script. To execute `Cakefile`s remember to install `coffee-script` as global node module: `npm install coffee-script -g`.
 
     cake test                 # Run execution tests for tmpl-precompile
+    cake examples             # Build examples
     cake compile              # Compiles lib and bin files
     cake bin                  # Compiles executable
     cake watch                # Watches all coffeescript files for changes
