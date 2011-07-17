@@ -18,17 +18,36 @@ templating solutions.
     
     npm install tmpl-precompile -g
 
-### Basic Usage
+### Command line
 
-By default, tmpl-precompile will look for a settings file named `tmpl-precompile.json` in the
-current directory. This settings file defines which templates should be precompiled and the
-output javascript file to save them in. To run, simply go to the directory with the file and type
+By default, `tmpl-precompile` as a command line tool will look for a settings file named `tmpl-precompile.json` in the current directory. This settings file defines which templates should be precompiled and the output javascript file to save them in. To run, simply go to the directory with the file and type
 
     tmpl-precompile
 
 It is possible to specify a custom settings file as a command line parameter:
 
     tmpl-precompile settings.json
+
+### Javascript
+
+If you prefer to use Javascript to execute the `tmpl-precompile`, you can do:
+
+    var tmpl-precompile = require('tmpl-precompile');
+    tmpl-precompile.precompile(settings[,dir]);
+    
+* `settings` is the global settings object as you can see below. `
+* `dir`(optional) defaults to the directory of the `module.parent` executing `tmpl-precompile`.
+
+A `Precompiler` object is automatically created by `tmpl-precompile` to handle each template group's compilation. If you wish to use the `Precompiler` object by itself, you can do: 
+
+    var Precompiler = require('tmpl-precompile').Precompiler
+    var myTemplates = new Precompiler(groupSettings[, callback])
+    myTemplates.compile()
+
+* `groupSettings` is an object containing settings for the individual group of templates, which is the same with `settings.groups` below. 
+* `callback`(optional) returns `(err, res)`, where `res` is the compiled template output.
+
+**Note**: You have to specify **at least one output channel**, either through the `output` parameter(see below) or `callback` or else there will be no output for your compilation. If you specify the `output` parameter `Precompiler` will always write the compiled templates to the `output` file specified. `callback` will always return the buffer in `res` to be manipulated in your app if you wish. 
 
 ## Settings
 
@@ -151,7 +170,7 @@ If you make changes to the `bin/tmpl-precompile.coffee` file, you need to recomp
 
 A `Cakefile` file is provided in the root directory with functions that will compile the coffee scripts and rename the shell script. To execute `Cakefile`s remember to install `coffee-script` as global node module: `npm install coffee-script -g`.
 
-    cake test                 # Run execution tests for tmpl-precompile
+    cake test                 # Run tests for tmpl-precompile
     cake examples             # Build examples
     cake compile              # Compiles lib and bin files
     cake bin                  # Compiles executable
