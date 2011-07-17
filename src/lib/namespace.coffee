@@ -1,111 +1,144 @@
-###
-splitNamespace(string, namespaces, callback, isGroupNamespace)
-Description: Splits each string and adds it into the 'namespaces' array for later processing
- 
-Params:
-  string: Namespace name
-  namespaces: Array to hold all namespaces
-  callback: function to perform after done splitting
-  isGroupNamespace: boolean value to determine if the current iteration is for group
-###
-
-splitNamespace = (string, namespaces, next, isGroupNamespace) ->
-  arr = string.split(/\.|\//) # Split template into array
-
-  # Determine the maximum depth to compile
-  if isGroupNamespace then max = arr.length else max = arr.length - 1
-
-  namespaces.push arr[0] # Push base namespace
-  
-  str = arr[0] # Set base namespace
-  
-  for i in [1...max]
-    str += ".#{arr[i]}" # Appends additional levels of namespacing
-    namespaces.push str
-
-  if next? then next(namespaces) # Return namespaces array
-
-###  
-checkGroupNamespace(group, namespaces)
-Description: Checks group namespace if needed to be splitted
-
-Params:
-  group: Template group settings
-  namespaces: Array to hold all namespaces
-###
-
-checkGroupNamespace = (group, namespaces, callback) ->
-  next = (namespaces) ->
-    checkTemplateNamespaces(group, namespaces, callback)
-  
-  if group.namespace.indexOf('.') > 0 # Checks if needed to split namespace
-    splitNamespace(group.namespace, namespaces, next, true)
-  else
-    namespaces.push(group.namespace)
-    next(namespaces)
+async = require 'async'
 
 
 ###
-checkTemplateNamespaces(group, namespaces)
-Description: Checks template namespaces if needed to be splitted
- 
-Params:
-  group: Template group settings
-  namespaces: Array to hold all namespaces
+Namespacer(settings, callback)
+Description: Creates a Namespacer instance for processing namespace data
+
+settings:
+  "namespace": String(Required), namespace object when including templates to browser
+  "templates": Array(Required), names of templates to be precompiled
+callback: (err, res) ->
 ###
 
-checkTemplateNamespaces = (group, namespaces, callback) ->
-  counter = 0
+class Namespacer
   
-  next = (namespaces) ->
-    counter++ # Counter to determine when iteration is done
-    if counter is group.templates.length
-      if namespaces.length > 0 then createNamespaces(group, namespaces, callback) 
-      else callback(null, group, namespaces)
+  ###
+  constructor
+  Description: Bind settings to object
+  ###
   
-  # Iterate through the templates
-  for template in group.templates
-    if template.indexOf('/') > 0  # Checks if needed to split namespace
-      splitNamespace(template, namespaces, callback)
-    else next(namespaces)
-
-
-###
-createNamespaces(group, namespaces)
-Description: Prepends required namespace declarations for the browser
-
-Params:
-  group: Template group settings
-  namespaces: Array to hold all namespaces
-###
-
-createNamespaces = (group, namespaces, callback) ->
-  nameSpaceBuf = ''
-  
-  # Get the maximum index for group namespaces in the namespaces array
-  groupNamespaceLength = (group.namespace).split('.').length  
-  
-  # Next action
-  next = ->
-    namespaces = 'var ' + nameSpaceBuf # Converts the array object into a string to pass to compile()
-    callback(null, group, namespaces)
-  
-  # Appends the group namespace declarations
-  for g in [0...groupNamespaceLength]
-    nameSpaceBuf += "#{namespaces[g]} = #{namespaces[g]} || {};\n"
+  constructor: (settings, callback) ->
     
-  # Appends the template namespace declarations
-  if groupNamespaceLength is namespaces.length
-    next()
-  else 
-    for t in [groupNamespaceLength...namespaces.length]
-      if namespaces[t] isnt namespaces[t+1] # Check to remove duplicates
-        nameSpaceBuf += "#{group.namespace}.#{namespaces[t]} = #{group.namespace}.#{namespaces[t]} || {};\n"
-      if t is namespaces.length-1
+    if settings.namespace? then @groupNamespace = settings.namespace
+    else callback('Error: \'namespace\' is not configured')
+    
+    if settings.templates? then @templates = settings.templates
+    else callback('Error: \'templates\' is not configured')
+    
+    if @groupNamespace? and @templates?
+      @callback = callback
+      @namespaces = []
+      @result = []
+      @init()
+
+  init: ->
+    self = @
+    
+    async.auto({
+      checkGroupNamespace: (callback) -> self.checkGroupNamespace(callback)
+      checkTemplateNamespaces: (callback) -> self.checkTemplateNamespaces(callback)
+      createNamespaces: ['checkGroupNamespace', 'checkTemplateNamespaces', (callback) ->
+        self.createNamespaces(callback)
+      ]
+    }, (err) ->
+      if err? then self.callback(err)
+      else
+        self.callback(null, self.result)
+    )
+    
+  ###  
+  checkGroupNamespace
+  Description: Checks group namespace if needed to be splitted
+  ###
+
+  checkGroupNamespace : (callback) ->
+    self = @
+    
+    # Checks if needed to split namespace
+    if @groupNamespace.indexOf('.') > 0
+      self.splitNamespace(self.groupNamespace, true)
+      callback(null)
+    else
+      @namespaces.push(@groupNamespace)
+      callback(null)
+  
+  ###
+  checkTemplateNamespaces
+  Description: Checks template namespaces if needed to be splitted
+  ###
+
+  checkTemplateNamespaces : (callback) ->
+    self = @
+    counter = 0
+    
+    next = ->
+      counter++
+      if counter is self.templates.length
+        arr = []
+        for i in [0...self.namespaces.length]
+          unless arr.indexOf(self.namespaces[i]) > 0
+            arr.push(self.namespaces[i])
+          if i is self.namespaces.length-1
+            self.namespaces = arr
+            callback(null)
+          
+    for templateName in self.templates
+      if templateName.indexOf('/') > 0
+        self.splitNamespace(templateName)
         next()
-        
-init = (settings, callback) ->
-  console.log settings
-  callback('function not ready')
-        
-module.exports = init
+      else next()
+  
+
+  ###
+  createNamespaces
+  Description: Prepends required namespace declarations for the browser
+  ###
+
+  createNamespaces : (callback) ->
+    self = @
+
+    next = ->
+      self.result[0] = 'var ' + self.result[0]
+      callback(null)
+
+    # Get the maximum index for group namespaces in the namespaces array
+    groupNamespaceLength = (@groupNamespace).split('.').length  
+  
+    # Appends the group namespace declarations
+    for g in [0...groupNamespaceLength]
+      self.result.push "#{@namespaces[g]} = #{@namespaces[g]} || {};"
+    
+    if groupNamespaceLength is @namespaces.length
+      next()
+    else 
+      for t in [groupNamespaceLength...@namespaces.length]
+        self.result.push "#{@groupNamespace}.#{@namespaces[t]} = #{@groupNamespace}.#{@namespaces[t]} || {};"
+        if t is @namespaces.length-1
+          next()
+          
+  ###
+  splitNamespace(name, isGroupNamespace)
+  Description: Helper, splits each string and adds it into the 'namespaces' array for later processing
+
+  Params:
+    name: Namespace name
+    isGroupNamespace: boolean value to determine if the current iteration is for group
+  ###
+
+  splitNamespace: (name, isGroupNamespace) ->
+    arr = name.split(/\.|\//) # Split template into array
+
+    # Determine the maximum depth to compile
+    if isGroupNamespace then max = arr.length else max = arr.length - 1
+
+    @namespaces.push arr[0] # Push base namespace
+
+    str = arr[0] # Set base namespace
+
+    for i in [1...max]
+      str += ".#{arr[i]}" # Appends additional levels of namespacing
+      @namespaces.push str
+
+module.exports = (settings, callback) ->
+  new Namespacer(settings, callback)
