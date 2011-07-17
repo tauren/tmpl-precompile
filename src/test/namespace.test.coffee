@@ -2,8 +2,6 @@ vows = require 'vows'
 assert = require 'assert'
 namespace = require '../lib/namespace'
 
-events = require 'events'
-
 # Test Suite
 namespaceTest = vows.describe 'tmpl-precompile: Namespace'
 

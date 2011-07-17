@@ -1,6 +1,5 @@
 async = require 'async'
 
-
 ###
 Namespacer(settings, callback)
 Description: Creates a Namespacer instance for processing namespace data

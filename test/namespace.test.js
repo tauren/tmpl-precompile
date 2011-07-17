@@ -1,9 +1,8 @@
 (function() {
-  var assert, events, longGroupNamespace, longTemplateAndGroupNames, longTemplateNames, namespace, namespaceTest, noNamespaceError, noTemplatesError, singleNamespace, vows;
+  var assert, longGroupNamespace, longTemplateAndGroupNames, longTemplateNames, namespace, namespaceTest, noNamespaceError, noTemplatesError, singleNamespace, vows;
   vows = require('vows');
   assert = require('assert');
   namespace = require('../lib/namespace');
-  events = require('events');
   namespaceTest = vows.describe('tmpl-precompile: Namespace');
   singleNamespace = {
     "Single namespace: Given a single namespace and two template names": {
