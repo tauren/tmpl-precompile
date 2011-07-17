@@ -47,6 +47,9 @@ channel and the module will throw an error.
 ###
 
 class Precompiler
+  ###
+  Binds settings, checks for dependencies and throw errors 
+  ###
   constructor: (groupSettings, callback) ->
     @settings = groupSettings
     @callback = callback
@@ -71,12 +74,8 @@ class Precompiler
     )
     
   ###
-  compile(group, namespaces)
-  Description: Starts compiling the templates and outputs file
-
-  Params: 
-    group: The 'group' object to process
-    namespaces: Buffer string, the result of namespace checking
+  compile()
+  Description: Flow control and execution for the compilation
   ###
 
   compile : ->
@@ -102,12 +101,8 @@ class Precompiler
       fs.writeFileSync @settings.output, buf
 
   ###
-  compileTemplate(template, group)
-  Description: Runs Jade's compile function 
- 
-  Params:
-    template: Template file name
-    group: Template group settings
+  compileTemplate()
+  Description: Compiles individual templates and returns them to compile()
   ###
 
   compileTemplate : (template) ->
@@ -123,6 +118,10 @@ class Precompiler
     
     namespace + '.' + templateNamespace + ' = ' + jade.compile(data, {compileDebug: compileDebug || false, inline: inline || false}) + ';\n'
     
+  ###
+  helpers()
+  Description: Gets Jade's helpers and combines them into string
+  ###
 
   helpers: ->
     # Get Jade helpers
@@ -162,7 +161,7 @@ class Precompiler
 ###
 ---Module exports---
 
-precompile(group, namespaces)
+precompile(settings, dir)
 Description: Main precompile function
 
 Params: 
