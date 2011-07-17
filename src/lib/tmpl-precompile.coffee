@@ -8,7 +8,7 @@ jsp = require("uglify-js").parser
 pro = require("uglify-js").uglify
 
 # Module requires
-namespace = require './namespace'
+Namespacer = require './namespace'
 {extractFunction, optimizeOutput} = require './optimize'
 {extend} = require './helpers'
 
@@ -32,24 +32,38 @@ settings:
   "uglify": Boolean(default:false), whether to minify JS
 	"namespace": String(Required), namespace object when including templates to browser
 	"source": String(Required), relative path to source directory
-	"output": String(Required), relative path to output directory
+	"output": String, relative path to output directory
 	"templates": Array(Required), names of templates to be precompiled
   "compileDebug": Boolean(default: false), whether to compile Jade debugging
   "inline": Boolean(default: false), whether to inline Jade runtime functions
+
+function callback(err, res) {}
+(Optional) For Javascript API. If specified "res" will be the String of compiled templates 
+of this group.
+
+Note: Either one or both of "callback"/"output" must be present, or there will be no output
+channel and the module will throw an error. 
 ###
 
 class Precompiler
   constructor: (groupSettings, callback) ->
     @settings = groupSettings
+    @callback = callback
     
     if @settings.source
       @settings.source = path.normalize(globalSettings.dir + '/' + @settings.source)
+    else
+      throw 'ERR: No source directory defined for ' + groupSettings.namespace
+      
     if @settings.output
       @settings.output = path.normalize(globalSettings.dir + '/' + @settings.output)
-        
+    else
+      unless @callback?
+        throw 'ERR: No callback or output directory defined for ' + groupSettings.namespace
+      
     self = @
     
-    namespace(@settings, (err, res) ->
+    Namespacer(@settings, (err, res) ->
       if err? then throw err
       else 
         self.namespaces = res.join('\n') + '\n'
@@ -64,20 +78,25 @@ class Precompiler
     namespaces: Buffer string, the result of namespace checking
   ###
 
-  compile : (callback) ->
-    {templates, namespaces, inline, uglify, output} = @settings
-    buf = ''
+  compile : ->
+    {templates, namespaces, inline, helpers, uglify, output} = @settings
+    buf = []
     
+    buf.push @namespaces if namespaces isnt false
+    
+    buf.push @helpers() if helpers isnt false and inline isnt true
+      
     for template in @settings.templates
   	  #buf += optimizeOutput @settings, @compileTemplate(template).toString()
-  	  buf += @compileTemplate(template).toString()
+  	  buf.push @compileTemplate(template).toString()
     
-    buf = @namespaces + buf if namespaces isnt false
-    buf = @helpers + buf if inline isnt true
+    buf = buf.join("")
+    
     buf = @uglifyOutput buf if uglify isnt false
     
-    if callback? then callback(null, buf)
-    else
+    if @callback? then @callback(null, buf)
+    
+    if output?
       console.log 'Saving ' + (if uglify isnt false then 'and Uglifying ' else '' ) + output
       fs.writeFileSync @settings.output, buf
 
@@ -104,21 +123,30 @@ class Precompiler
     namespace + '.' + templateNamespace + ' = ' + jade.compile(data, {compileDebug: compileDebug || false, inline: inline || false}) + ';\n'
     
 
-  helpers: (->
+  helpers: ->
     # Get Jade helpers
     attrs = jade.runtime.attrs.toString()
     escape = jade.runtime.escape.toString()
-    helpers = """
-      #{attrs}
-      #{escape}
-      var jade = {
-        attrs: attrs,
-        escape: escape
-      }\n
-    """
-    helpers
-  )()
-
+    rethrow = jade.runtime.rethrow.toString()
+    
+    if @settings.compileDebug
+      obj = """
+        var jade = {
+          attrs: attrs,
+          escape: escape,
+          rethrow: rethrow
+        };\n
+      """
+      [attrs, escape, rethrow, obj].join('\n')
+    else
+      obj = """
+        var jade = {
+          attrs: attrs,
+          escape: escape
+        };\n
+      """
+      [attrs, escape, obj].join('\n')
+      
   ###
   uglifyOutput(output)
   Description: Minifies generated JS with uglifyJS

@@ -1,3 +1,5 @@
+var single = single || {};
+single.level = single.level || {};
 function attrs(obj){
   var buf = []
     , terse = obj.terse;
@@ -34,9 +36,7 @@ function escape(html){
 var jade = {
   attrs: attrs,
   escape: escape
-}
-var single = single || {};
-single.level = single.level || {};
+};
 single.level.layout = function anonymous(locals) {
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];

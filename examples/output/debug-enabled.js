@@ -1,3 +1,4 @@
+var debugEnabled = debugEnabled || {};
 function attrs(obj){
   var buf = []
     , terse = obj.terse;
@@ -31,11 +32,32 @@ function escape(html){
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 }
+function rethrow(err, str, filename, lineno){
+  var context = 3
+    , lines = str.split('\n')
+    , start = Math.max(lineno - context, 0)
+    , end = Math.min(lines.length, lineno + context); 
+
+  // Error context
+  var context = lines.slice(start, end).map(function(line, i){
+    var curr = i + start + 1;
+    return (curr == lineno ? '  > ' : '    ')
+      + curr
+      + '| '
+      + line;
+  }).join('\n');
+
+  // Alter exception message
+  err.path = filename;
+  err.message = (filename || 'Jade') + ':' + lineno 
+    + '\n' + context + '\n\n' + err.message;
+  throw err;
+}
 var jade = {
   attrs: attrs,
-  escape: escape
-}
-var debugEnabled = debugEnabled || {};
+  escape: escape,
+  rethrow: rethrow
+};
 debugEnabled.layout = function anonymous(locals) {
 var __ = { lineno: 1, input: "#content\n  h1 Hello world!", filename: undefined };
 var rethrow = jade.rethrow;

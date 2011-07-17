@@ -1,3 +1,9 @@
+var very = very || {};
+very.long = very.long || {};
+very.long.namespace = very.long.namespace || {};
+very.long.namespace.level1 = very.long.namespace.level1 || {};
+very.long.namespace.level1.level2 = very.long.namespace.level1.level2 || {};
+very.long.namespace.level1.level2.level3 = very.long.namespace.level1.level2.level3 || {};
 function attrs(obj){
   var buf = []
     , terse = obj.terse;
@@ -34,13 +40,7 @@ function escape(html){
 var jade = {
   attrs: attrs,
   escape: escape
-}
-var very = very || {};
-very.long = very.long || {};
-very.long.namespace = very.long.namespace || {};
-very.long.namespace.level1 = very.long.namespace.level1 || {};
-very.long.namespace.level1.level2 = very.long.namespace.level1.level2 || {};
-very.long.namespace.level1.level2.level3 = very.long.namespace.level1.level2.level3 || {};
+};
 very.long.namespace.layout = function anonymous(locals) {
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];

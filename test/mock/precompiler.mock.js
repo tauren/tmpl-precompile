@@ -7,15 +7,37 @@
     defaultSettings: {
       namespace: 'defaultSettings',
       templates: ['tmpl1', 'tmpl2'],
-      source: 'stubs/templates/',
-      output: 'stubs/output/templates.js'
+      source: 'stubs/templates/'
     },
-    noMinify: {
-      namespace: 'noMinify',
+    noUglify: {
+      namespace: 'noUglify',
       templates: ['tmpl1', 'tmpl2'],
       source: 'stubs/templates/',
-      output: 'stubs/output/templates.js',
-      minify: false
+      uglify: false
+    },
+    compileDebug: {
+      namespace: 'compileDebug',
+      templates: ['tmpl1', 'tmpl2'],
+      source: 'stubs/templates/',
+      compileDebug: true
+    },
+    inlineRuntime: {
+      namespace: 'inlineRuntime',
+      templates: ['tmpl1', 'tmpl2'],
+      source: 'stubs/templates/',
+      inline: true
+    },
+    noHelpers: {
+      namespace: 'noHelpers',
+      templates: ['tmpl1', 'tmpl2'],
+      source: 'stubs/templates/',
+      helpers: false
+    },
+    outputFile: {
+      namespace: 'outputFile',
+      templates: ['tmpl1', 'tmpl2'],
+      source: 'stubs/templates/',
+      output: 'stubs/output/templates.js'
     }
   };
   tmpl1 = 'p Hello world!';
@@ -39,13 +61,15 @@
     });
   };
   teardownStubs = function(settings, callback) {
-    var source;
-    source = settings.source;
+    var output, source;
+    source = settings.source, output = settings.output;
     return async.parallel([
       (function(callback) {
         return fs.unlink(path.normalize(source + '/' + 'tmpl1.jade'), callback);
       }), (function(callback) {
         return fs.unlink(path.normalize(source + '/' + 'tmpl2.jade'), callback);
+      }), (function(callback) {
+        return fs.unlink(output, callback);
       })
     ], function(err) {
       if (err != null) {

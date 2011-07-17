@@ -1,3 +1,7 @@
+var templates = templates || {};
+templates.level1 = templates.level1 || {};
+templates.level1.level2 = templates.level1.level2 || {};
+templates.level1.level2.level3 = templates.level1.level2.level3 || {};
 function attrs(obj){
   var buf = []
     , terse = obj.terse;
@@ -34,11 +38,7 @@ function escape(html){
 var jade = {
   attrs: attrs,
   escape: escape
-}
-var templates = templates || {};
-templates.level1 = templates.level1 || {};
-templates.level1.level2 = templates.level1.level2 || {};
-templates.level1.level2.level3 = templates.level1.level2.level3 || {};
+};
 templates.layout = function anonymous(locals) {
 var attrs = jade.attrs, escape = jade.escape;
 var buf = [];

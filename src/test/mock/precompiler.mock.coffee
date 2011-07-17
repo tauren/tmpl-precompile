@@ -7,13 +7,31 @@ mockData =
     namespace: 'defaultSettings'
     templates: ['tmpl1', 'tmpl2']
     source: 'stubs/templates/'
-    output: 'stubs/output/templates.js'
-  noMinify:
-    namespace: 'noMinify'
+  noUglify:
+    namespace: 'noUglify'
+    templates: ['tmpl1', 'tmpl2']
+    source: 'stubs/templates/'
+    uglify: false
+  compileDebug:
+    namespace: 'compileDebug'
+    templates: ['tmpl1', 'tmpl2']
+    source: 'stubs/templates/'
+    compileDebug: true
+  inlineRuntime:
+    namespace: 'inlineRuntime'
+    templates: ['tmpl1', 'tmpl2']
+    source: 'stubs/templates/'
+    inline: true
+  noHelpers:
+    namespace: 'noHelpers'
+    templates: ['tmpl1', 'tmpl2']
+    source: 'stubs/templates/'
+    helpers: false
+  outputFile: 
+    namespace: 'outputFile'
     templates: ['tmpl1', 'tmpl2']
     source: 'stubs/templates/'
     output: 'stubs/output/templates.js'
-    minify: false
 
 tmpl1 = 'p Hello world!'
 tmpl2 = 'p Good day!'
@@ -32,11 +50,12 @@ setupStubs = (settings, callback) ->
 
 # Helper to teardown stubs
 teardownStubs = (settings, callback) ->
-  {source} = settings
+  {source, output} = settings
   
   async.parallel([
     ((callback) -> fs.unlink(path.normalize(source + '/' + 'tmpl1.jade'), callback))
     ((callback) -> fs.unlink(path.normalize(source + '/' + 'tmpl2.jade'), callback))
+    ((callback) -> fs.unlink(output, callback))
   ], (err) ->
     if err? then throw err
     else callback(null)
