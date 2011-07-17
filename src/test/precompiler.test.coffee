@@ -42,16 +42,24 @@ defaultSettings =
       'Done tearing down': ->
 
 noMinify = 
-  'No minify: Given minify: false':
+  'No minify: Given minify=false':
     topic: ->
-      setupStubs(mockData.noMinify, @callback)
+      setupPrecompiler(mockData.noMinify, @callback)
       return
     'It should contain no errors': (err, res) -> assert.isNull err
     'It should be a string': (err, res) -> assert.isString res
     'It should not be minified': (err, res) ->
       assert.strictEqual res.split('\n').length > 1, true
       
+    '..Teardown stubs:-':
+      topic: ->
+        teardownStubs(mockData.noMinify, @callback)
+        return
+
+      'Done tearing down': ->
+      
 # Export batches
 precompilerTest
   .addBatch(defaultSettings)
+  .addBatch(noMinify)
   .export(module)

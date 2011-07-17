@@ -49,9 +49,9 @@
     }
   };
   noMinify = {
-    'No minify: Given minify: false': {
+    'No minify: Given minify=false': {
       topic: function() {
-        setupStubs(mockData.noMinify, this.callback);
+        setupPrecompiler(mockData.noMinify, this.callback);
       },
       'It should contain no errors': function(err, res) {
         return assert.isNull(err);
@@ -61,8 +61,14 @@
       },
       'It should not be minified': function(err, res) {
         return assert.strictEqual(res.split('\n').length > 1, true);
+      },
+      '..Teardown stubs:-': {
+        topic: function() {
+          teardownStubs(mockData.noMinify, this.callback);
+        },
+        'Done tearing down': function() {}
       }
     }
   };
-  precompilerTest.addBatch(defaultSettings)["export"](module);
+  precompilerTest.addBatch(defaultSettings).addBatch(noMinify)["export"](module);
 }).call(this);
