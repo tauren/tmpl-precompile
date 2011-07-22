@@ -1,6 +1,6 @@
 `#!/usr/bin/env node
 `
-jsonfile = process.ARGV[process.ARGV.length-1] || 'tmpl-precompile.json'
+jsonfile = (-> process.ARGV[process.ARGV.length] ?= 'tmpl-precompile.json')()
 precompile = require('../lib/tmpl-precompile').precompile
 fs = require 'fs'
 
@@ -14,7 +14,7 @@ catch err
     ERR:tmpl-recompile: No configuration file found in this directory.
     Current dir: #{process.cwd()}
     For more information, please visit: https://github.com/tauren/tmpl-precompile
-    
+    #{err}
   """
 
 if settings isnt {}
@@ -29,8 +29,7 @@ if settings isnt {}
     jsondir = match[0...match.length-1].join('/')
     cwd = process.cwd() + '/' + jsondir
   else
-    cwd = process.cwd()
-
+    cwd = process.cwd() + jsonfile
 
   console.log 'Using configuration file: ' + cwd + '/' + jsonfile
   precompile(settings,cwd)
