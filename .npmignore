@@ -1,0 +1,6 @@
+.git/*
+.gitignore
+test/*
+src/*
+examples/*
+node_modules/*
