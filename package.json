@@ -1,7 +1,7 @@
 {
   "name": "tmpl-precompile",
   "description": "precompiles templates into javascript functions",
-  "version": "0.1.4",
+  "version": "0.1.45",
   "author": "Tauren Mills <tauren@groovee.com>",
   "repository": {
       "type": "git",
@@ -11,8 +11,9 @@
   "main": "./index.js",
   "bin": { "tmpl-precompile": "./bin/tmpl-precompile" },
   "dependencies": {
-    "jade": ">= 0.11.0",
-    "uglify-js": ">= 1.0.1"
+    "jade": ">= 0.13.0",
+    "uglify-js": ">= 1.0.1", 
+    "async": ">= 0.1.9"
   },
   "devDependencies": {
     "vows": ">= 0.5.8"
