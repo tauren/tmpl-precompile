@@ -1,6 +1,6 @@
 `#!/usr/bin/env node
 `
-jsonfile = (-> process.ARGV[process.ARGV.length] ?= 'tmpl-precompile.json')()
+jsonfile = process.ARGV[2] || 'tmpl-precompile.json'
 precompile = require('../lib/tmpl-precompile').precompile
 fs = require 'fs'
 
@@ -11,7 +11,7 @@ try
 catch err
   throw """
     
-    ERR:tmpl-recompile: No configuration file found in this directory.
+    ERR:tmpl-precompile: No configuration file found in this directory.
     Current dir: #{process.cwd()}
     For more information, please visit: https://github.com/tauren/tmpl-precompile
     #{err}

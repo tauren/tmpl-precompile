@@ -1,16 +1,13 @@
 #!/usr/bin/env node
 ;var cwd, fs, jsondir, jsonfile, match, precompile, settings;
-jsonfile = (function() {
-  var _base, _name, _ref;
-  return (_ref = (_base = process.ARGV)[_name = process.ARGV.length]) != null ? _ref : _base[_name] = 'tmpl-precompile.json';
-})();
+jsonfile = process.ARGV[2] || 'tmpl-precompile.json';
 precompile = require('../lib/tmpl-precompile').precompile;
 fs = require('fs');
 settings = {};
 try {
   settings = JSON.parse(fs.readFileSync(jsonfile, 'utf8'));
 } catch (err) {
-  throw "\nERR:tmpl-recompile: No configuration file found in this directory.\nCurrent dir: " + (process.cwd()) + "\nFor more information, please visit: https://github.com/tauren/tmpl-precompile\n" + err;
+  throw "\nERR:tmpl-precompile: No configuration file found in this directory.\nCurrent dir: " + (process.cwd()) + "\nFor more information, please visit: https://github.com/tauren/tmpl-precompile\n" + err;
 }
 if (settings !== {}) {
   settings.args = process.ARGV;
