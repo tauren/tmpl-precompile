@@ -17,6 +17,7 @@ catch err
     #{err}
   """
 
+# TODO: Simplify by using require('path')
 if settings isnt {}
   settings.args = process.ARGV
   settings.relative = settings.relative || true
