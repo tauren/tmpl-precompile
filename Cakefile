@@ -15,26 +15,25 @@ task 'examples', 'Build examples', ->
 
 task 'compile', 'Compiles lib and bin files', ->
   tasks = exec '''
-    echo "Compiling files in $BASEDIR/lib"
+    echo "Compiling files in lib"
     coffee -o lib/ -c lib/
     
-    echo "Compiling files in $BASEDIR/bin"
+    echo "Compiling files in bin"
     coffee -b -o bin/ -c bin/ 
 
     echo "Copying bin/tmpl-precompile.js to bin/tmpl-precompile"
     cp bin/tmpl-precompile.js bin/tmpl-precompile
   '''
   printOutput(tasks)
-  
+ 
 task 'bin', 'Compiles executable', ->
   tasks = exec '''
-    echo "Compiling files in $BASEDIR/bin"
+    echo "Compiling files in bin"
     coffee -b -o bin/ -c bin/ 
 
     echo "Copying bin/tmpl-precompile.js to bin/tmpl-precompile"
     cp bin/tmpl-precompile.js bin/tmpl-precompile
   '''
-  
   printOutput(tasks)
   
 task 'watch', 'Watches all coffeescript files for changes', ->
