@@ -7,6 +7,8 @@ util = require 'util'
 jsp = require("uglify-js").parser
 pro = require("uglify-js").uglify
 sys = require 'sys'
+async = require 'async'
+colors = require './colors'
 
 # Module requires
 Namespacer = require './namespace'
@@ -94,11 +96,11 @@ class Precompiler
     
     buf = @uglifyOutput buf if uglify isnt false
     
-    if @callback? then @callback(null, buf)
-    
     if output?
-      console.log 'Saving ' + (if uglify isnt false then 'and Uglifying ' else '' ) + output
       fs.writeFileSync @settings.output, buf
+      console.log ('Saving ' + (if uglify isnt false then 'and Uglifying ' else '' )).bold + ':' + output
+      
+    if @callback? then @callback(null, buf)
 
   ###
   compileTemplate()
@@ -175,12 +177,12 @@ module.exports.precompile = (settings,dir) ->
 	extend(globalSettings, settings)
 	globalSettings.dir = dir
 	
-	groups = []
-	
-	for groupSettings in settings.groups
-	  groups.push new Precompiler(groupSettings)
-  
-  for group in groups
-    group.compile()
+	# Asynchronously run compilers at same time
+	async.forEach settings.groups, (groupSetting, callback) ->
+	  precompiler = new Precompiler(groupSetting, callback)
+	  precompiler.compile()
+	, (err, res) ->
+    if err? then console.log err
+    else console.log "\n\n\n...Done.\n\n"
     
 module.exports.Precompiler = Precompiler
