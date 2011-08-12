@@ -16,7 +16,7 @@ task 'examples', 'Build examples', ->
 task 'compile', 'Compiles lib and bin files', ->
   tasks = exec '''
     echo "Compiling files in lib"
-    coffee -o lib/ -c lib/
+    coffee -o ./ -c src/
     
     echo "Compiling files in bin"
     coffee -b -o bin/ -c bin/ 
