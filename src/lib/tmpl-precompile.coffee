@@ -33,10 +33,10 @@ Description: Creates a Precompiler instance for executing precompiling work
 
 settings: 
   "uglify": Boolean(default:false), whether to minify JS
-	"namespace": String(Required), namespace object when including templates to browser
-	"source": String(Required), relative path to source directory
-	"output": String, relative path to output directory
-	"templates": Array(Required), names of templates to be precompiled
+  "namespace": String(Required), namespace object when including templates to browser
+  "source": String(Required), relative path to source directory
+  "output": String, relative path to output directory
+  "templates": Array(Required), names of templates to be precompiled
   "compileDebug": Boolean(default: false), whether to compile Jade debugging
   "inline": Boolean(default: false), whether to inline Jade runtime functions
 
@@ -89,8 +89,8 @@ class Precompiler
     buf.push @helpers() if helpers isnt false and inline isnt true
       
     for template in @settings.templates
-  	  #buf += optimizeOutput @settings, @compileTemplate(template).toString()
-  	  buf.push @compileTemplate(template).toString()
+      #buf += optimizeOutput @settings, @compileTemplate(template).toString()
+      buf.push @compileTemplate(template).toString()
     
     buf = buf.join("")
     
@@ -111,7 +111,7 @@ class Precompiler
     {source, namespace, compileDebug, inline} = @settings
     
     templateNamespace = template.replace(/\//g, '.') # Replaces '/' with '.'
-  
+
     if @settings.verbose
       console.log "Compiling #{namespace}.#{templateNamespace} from #{source+template}"
     
@@ -155,10 +155,10 @@ class Precompiler
   ###
 
   uglifyOutput : (output) ->
-  	ast = jsp.parse output  # parse code and get the initial AST
-  	ast = pro.ast_mangle ast # get a new AST with mangled names
-  	ast = pro.ast_squeeze ast # get an AST with compression optimizations
-  	pro.gen_code ast # compressed code here
+    ast = jsp.parse output  # parse code and get the initial AST
+    ast = pro.ast_mangle ast # get a new AST with mangled names
+    ast = pro.ast_squeeze ast # get an AST with compression optimizations
+    pro.gen_code ast # compressed code here
 
 ###
 ---Module exports---
@@ -174,14 +174,14 @@ Params:
 ###
 
 module.exports.precompile = (settings,dir) ->
-	extend(globalSettings, settings)
-	globalSettings.dir = dir
-	
-	# Asynchronously run compilers at same time
-	async.forEach settings.groups, (groupSetting, callback) ->
-	  precompiler = new Precompiler(groupSetting, callback)
-	  precompiler.compile()
-	, (err, res) ->
+  extend(globalSettings, settings)
+  globalSettings.dir = dir
+  
+  # Asynchronously run compilers at same time
+  async.forEach settings.groups, (groupSetting, callback) ->
+    precompiler = new Precompiler(groupSetting, callback)
+    precompiler.compile()
+  , (err, res) ->
     if err? then console.log err
     else console.log "\n\n\n...Done.\n\n"
     
