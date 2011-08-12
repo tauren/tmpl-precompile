@@ -72,6 +72,7 @@ Here is an example settings file:
 				"inline": false,
 				"debug": false,
 				"namespace": "NS.uglified",
+        "window": false,
 				"source": "/templates/",
 				"output": "/output/uglified.js",
 				"templates": [
@@ -84,6 +85,7 @@ Here is an example settings file:
 				"inline": true,
 				"compileDebug": true,
 				"namespace": "NS.templates",
+        "window": false,
 				"source": "/templates/",
 				"output": "/output/templates.js",
 				"templates": [
@@ -124,6 +126,20 @@ group of template files and the options used to process them.
 ### uglify
 
 If true, then the output file is uglified before saving. If false, the output is not uglified.
+
+### skiproot
+
+
+If false, then a variable is defined for the top-level namespace. Specifying a namespace of
+`NS.templates` would create the following if `skiproot: false`:
+
+    var NS = NS || {};
+    NS.templates = NS.templates || {};
+
+If true, then the top-level namespace is assumed to already exist. The initial namespace 
+declaration is skipped. So a namespace of `NS.templates` would create:
+
+    NS.templates = NS.templates || {};
 
 ### helpers
 
