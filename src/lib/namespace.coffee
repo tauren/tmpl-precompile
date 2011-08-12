@@ -25,6 +25,8 @@ class Namespacer
     if settings.templates? then @templates = settings.templates
     else callback('Error: \'templates\' is not configured')
     
+    if settings.skiproot? then @skiproot = settings.skiproot
+
     if @groupNamespace? and @templates?
       @callback = callback
       @namespaces = []
@@ -98,7 +100,8 @@ class Namespacer
     self = @
 
     next = ->
-      self.result[0] = 'var ' + self.result[0]
+      if not self.skiproot
+        self.result[0] = 'var ' + self.result[0]
       callback(null)
 
     # Get the maximum index for group namespaces in the namespaces array
@@ -106,7 +109,8 @@ class Namespacer
   
     # Appends the group namespace declarations
     for g in [0...groupNamespaceLength]
-      self.result.push "#{@namespaces[g]} = #{@namespaces[g]} || {};"
+      if g > 0 or not @skiproot 
+        self.result.push "#{@namespaces[g]} = #{@namespaces[g]} || {};"
     
     if groupNamespaceLength is @namespaces.length
       next()
