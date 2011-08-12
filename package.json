@@ -1,7 +1,7 @@
 {
   "name": "tmpl-precompile",
   "description": "precompiles templates into javascript functions",
-  "version": "0.1.45",
+  "version": "0.1.5",
   "homepage": "https://github.com/tauren/tmpl-precompile",
   "author": "Tauren Mills <tauren@groovee.com> (http://groovee.com)",
   "contributors": [
