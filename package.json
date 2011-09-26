@@ -22,7 +22,7 @@
   "main": "./index.js",
   "bin": { "tmpl-precompile": "./bin/tmpl-precompile" },
   "dependencies": {
-    "jade": ">= 0.13.0",
+    "jade": "0.14.0",
     "uglify-js": ">= 1.0.1", 
     "async": ">= 0.1.9"
   },

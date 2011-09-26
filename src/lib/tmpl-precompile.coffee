@@ -1,19 +1,19 @@
 version = [0,1,4]
 
-jade = require 'jade'
-fs = require 'fs'
-path = require 'path'
-util = require 'util'
-jsp = require("uglify-js").parser
-pro = require("uglify-js").uglify
-sys = require 'sys'
-async = require 'async'
-colors = require './colors'
+jade   = require "../node_modules/jade"
+fs     = require "fs"
+path   = require "path"
+util   = require "util"
+jsp    = require("../node_modules/uglify-js").parser
+pro    = require("../node_modules/uglify-js").uglify
+sys    = require "sys"
+async  = require "../node_modules/async"
+colors = require "./colors"
 
 # Module requires
-Namespacer = require './namespace'
-{extractFunction, optimizeOutput} = require './optimize'
-{extend} = require './helpers'
+Namespacer = require "./namespace"
+{extractFunction, optimizeOutput} = require "./optimize"
+{extend} = require "./helpers"
 
 # Global settings
 globalSettings = {
