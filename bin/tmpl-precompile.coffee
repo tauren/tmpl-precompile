@@ -1,6 +1,6 @@
 `#!/usr/bin/env node
 `
-jsonfile = process.ARGV[2] || 'tmpl-precompile.json'
+jsonfile = process.argv[2] || 'tmpl-precompile.json'
 precompile = require('../lib/tmpl-precompile').precompile
 fs = require 'fs'
 colors = require '../lib/colors'
@@ -19,7 +19,7 @@ catch err
 
 # TODO: Simplify by using require('path')
 if settings isnt {}
-  settings.args = process.ARGV
+  settings.args = process.argv
   settings.relative = settings.relative || true
   
   # Get relative directory of jsonfile from the directory of execution
