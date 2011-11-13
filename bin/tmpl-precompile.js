@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-;var colors, cwd, fs, jsondir, jsonfile, match, precompile, settings;
-jsonfile = process.ARGV[2] || 'tmpl-precompile.json';
+;
+var colors, cwd, fs, jsondir, jsonfile, match, precompile, settings;
+jsonfile = process.argv[2] || 'tmpl-precompile.json';
 precompile = require('../lib/tmpl-precompile').precompile;
 fs = require('fs');
 colors = require('../lib/colors');
@@ -11,7 +12,7 @@ try {
   throw "ERR:tmpl-precompile: No configuration file found in this directory.\nCurrent dir: " + (process.cwd()) + "\nFor more information, please visit: https://github.com/tauren/tmpl-precompile\n" + err;
 }
 if (settings !== {}) {
-  settings.args = process.ARGV;
+  settings.args = process.argv;
   settings.relative = settings.relative || true;
   if (settings.relative === false) {
     cwd = '';

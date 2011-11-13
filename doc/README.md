@@ -17,13 +17,6 @@ templating solutions.
 `tmpl-precompile` can be run from a shell command prompt, although it actually runs within node.js. To install, do:
     
     npm install tmpl-precompile -g
-    
-**NOTE**: `tmpl-precompile` currently uses the [latest version of `jade` at Github](https://github.com/visionmedia/jade/), which is newer than the one in NPM(0.13). If you wish to use `tmpl-precompile` right now, please checkout the latest version of `jade` to `tmpl-precompile`. To do so, please do:
-    
-    cd /usr/local/lib/node_modules/tmpl-precompile/node_modules
-    rm -rf jade
-    git clone https://github.com/visionmedia/jade.git
-
 
 ### Command line
 
