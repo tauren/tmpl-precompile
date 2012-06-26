@@ -1,9 +1,9 @@
 {spawn, exec} = require 'child_process'
-sys = require 'sys'
+util = require 'util'
 
 printOutput = (process) ->
-  process.stdout.on 'data', (data) -> sys.print data
-  process.stderr.on 'data', (data) -> sys.print data
+  process.stdout.on 'data', (data) -> util.print data
+  process.stderr.on 'data', (data) -> util.print data
 
 task 'test', 'Run execution tests for tmpl-precompile', ->
   test = exec 'vows test/*.test.js'
@@ -29,7 +29,7 @@ task 'compile', 'Compiles lib and bin files', ->
 task 'bin', 'Compiles executable', ->
   tasks = exec '''
     echo "Compiling files in bin"
-    coffee -b -o bin/ -c bin/ 
+    coffee -b -o bin/ -c bin/*.coffee 
 
     echo "Copying bin/tmpl-precompile.js to bin/tmpl-precompile"
     cp bin/tmpl-precompile.js bin/tmpl-precompile

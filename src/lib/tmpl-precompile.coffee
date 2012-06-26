@@ -6,7 +6,6 @@ path   = require "path"
 util   = require "util"
 jsp    = require("../node_modules/uglify-js").parser
 pro    = require("../node_modules/uglify-js").uglify
-sys    = require "sys"
 async  = require "../node_modules/async"
 colors = require "./colors"
 
