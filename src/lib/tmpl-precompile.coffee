@@ -83,6 +83,8 @@ class Precompiler
     {templates, namespaces, inline, helpers, uglify, output} = @settings
     buf = []
     
+    buf.push "(function(){"
+
     buf.push @namespaces if namespaces isnt false
     
     buf.push @helpers() if helpers isnt false and inline isnt true
@@ -91,6 +93,8 @@ class Precompiler
       #buf += optimizeOutput @settings, @compileTemplate(template).toString()
       buf.push @compileTemplate(template).toString()
     
+    buf.push "})();"
+
     buf = buf.join("")
     
     buf = @uglifyOutput buf if uglify isnt false
