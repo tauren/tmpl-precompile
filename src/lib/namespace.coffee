@@ -110,7 +110,7 @@ class Namespacer
     # Appends the group namespace declarations
     for g in [0...groupNamespaceLength]
       if g > 0 or not @skiproot 
-        self.result.push "#{@namespaces[g]} = #{@namespaces[g]} || {};"
+        self.result.push "window.#{@namespaces[g]} = window.#{@namespaces[g]} || {};"
     
     if groupNamespaceLength is @namespaces.length
       next()
