@@ -99,26 +99,21 @@ class Namespacer
   createNamespaces : (callback) ->
     self = @
 
-    next = ->
-      if not self.skiproot
-        self.result[0] = 'var ' + self.result[0]
-      callback(null)
-
     # Get the maximum index for group namespaces in the namespaces array
     groupNamespaceLength = (@groupNamespace).split('.').length  
   
     # Appends the group namespace declarations
     for g in [0...groupNamespaceLength]
-      if g > 0 or not @skiproot 
+      if g > 0 or not @skiproot
         self.result.push "window.#{@namespaces[g]} = window.#{@namespaces[g]} || {};"
     
     if groupNamespaceLength is @namespaces.length
-      next()
+      callback null
     else 
       for t in [groupNamespaceLength...@namespaces.length]
         self.result.push "#{@groupNamespace}.#{@namespaces[t]} = #{@groupNamespace}.#{@namespaces[t]} || {};"
         if t is @namespaces.length-1
-          next()
+          callback null
           
   ###
   splitNamespace(name, isGroupNamespace)
