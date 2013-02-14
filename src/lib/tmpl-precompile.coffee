@@ -101,7 +101,7 @@ class Precompiler
 
     if output?
       fs.writeFileSync @settings.output, buf
-      console.log ('Saving ' + (if uglify isnt false then 'and Uglifying ' else '' )).bold + ':' + output
+      console.log ('Saving ' + (if uglify isnt false then 'and Uglifying ' else '' )).bold + ':' + output if @settings.verbose
 
     if @callback? then @callback(null, buf)
 
@@ -174,9 +174,10 @@ Params:
     "verbose": Boolean(default:false), if should output compile info on console
     "relative": Boolean(default:true), if paths to each template is relative to settings file
   dir(string): Main execution directory
+  cb(function): callback to run when finished
 ###
 
-module.exports.precompile = (settings,dir) ->
+module.exports.precompile = (settings,dir,cb) ->
   extend(globalSettings, settings)
   globalSettings.dir = dir
 
@@ -185,7 +186,10 @@ module.exports.precompile = (settings,dir) ->
     precompiler = new Precompiler(groupSetting, callback)
     precompiler.compile()
   , (err, res) ->
-    if err? then console.log err
-    else console.log "\n\n\n...Done.\n\n"
+    if err?
+      console.log err
+    else
+      if cb? then cb()
+      console.log "\n\n\n...Done.\n\n" if @settings.verbose
 
 module.exports.Precompiler = Precompiler
