@@ -185,11 +185,11 @@ module.exports.precompile = (settings,dir,cb) ->
   async.forEach settings.groups, (groupSetting, callback) ->
     precompiler = new Precompiler(groupSetting, callback)
     precompiler.compile()
-  , (err, res) ->
+  , (err, res) =>
     if err?
       console.log err
     else
-      if cb? then cb()
-      console.log "\n\n\n...Done.\n\n" if @settings.verbose
+      if cb? then return cb()
+      console.log "\n\n\n...Done.\n\n"
 
 module.exports.Precompiler = Precompiler
